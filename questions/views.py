@@ -12,16 +12,16 @@ from .models import Question
 
 
 class QuestionsView(ListView):
-    template_name = "/question/questions.html"
+    template_name = "question/questions.html"
     model = Question
 
 class QuestionDetailView(DetailView):
-    template_name = "/question/question.html"
+    template_name = "question/question.html"
     model = Question
 
 
 class AddQuestionView(CreateView):
-    template_name = '/question/add_question.html'
+    template_name = 'question/add_question.html'
     model = Question
     fields = ['title', 'body']
 
