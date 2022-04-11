@@ -1,0 +1,103 @@
+/* Display django-debug-toolbar.
+   See https://github.com/django-debug-toolbar/django-debug-toolbar/issues/742
+   and https://github.com/pydanny/cookiecutter-django/issues/317
+*/
+[hidden][style="display: block;"] {
+  display: block !important;
+}
+
+/* Custom CSS */
+
+.form-control {
+  font-size: 14px;
+}
+
+/* Goal Scores. Adapted from here: https://bootsnipp.com/snippets/featured/round-icon-badges */
+
+.goal-score {
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+  line-height: 50px;
+  -moz-border-radius: 25px;
+  border-radius: 25px;
+  background-color: transparent;
+  text-align: center;
+  -webkit-box-shadow: 0px 0px 0px 3px #08D419;
+  -moz-box-shadow: 0px 0px 0px 3px #08D419;
+  box-shadow: 0px 0px 0px 3px #08D419;
+}
+
+.goal-score-success {
+  color: #08D419;
+  -webkit-box-shadow: 0px 0px 0px 3px #08D419;
+  -moz-box-shadow: 0px 0px 0px 3px #08D419;
+  box-shadow: 0px 0px 0px 3px #08D419;
+}
+
+.goal-score-warning {
+  color: #FFC105;
+  -webkit-box-shadow: 0px 0px 0px 3px #FFC105;
+  -moz-box-shadow: 0px 0px 0px 3px #FFC105;
+  box-shadow: 0px 0px 0px 3px #FFC105;
+}
+
+.goal-score-danger {
+  color: #FF0017;
+  -webkit-box-shadow: 0px 0px 0px 3px #FF0017;
+  -moz-box-shadow: 0px 0px 0px 3px #FF0017;
+  box-shadow: 0px 0px 0px 3px #FF0017;
+}
+
+/* Goal List */
+
+#goal-list-filters {
+  margin-bottom: -17px;
+}
+
+/* Goal detail */
+
+#show-all-goals {
+  font-size: 12px;
+}
+
+.take-action-select > select {
+  border-color: #1a90eb;
+  color: #1a90eb;
+  font-size: 14px;
+}
+
+.take-action-select > select:focus {
+  border-color: #1a90eb;
+  color: #1a90eb;
+  font-size: 14px;
+}
+
+
+/* Home Page */
+
+.home-page-jumbotron {
+  background-color: #252425;
+  padding-top: 0;
+}
+
+.home-page-container {
+  background-color: #252425;
+  color: white;
+}
+
+.home-page-container a:hover {
+  color: black;
+}
+
+.btn.btn-outline-light:hover {
+  color: #0faef6;
+}
+
+@media (min-width:992px) {
+  .home-page-container {
+    margin-top: -250px;
+    background-color: transparent;
+  }
+}
+
