@@ -45,10 +45,10 @@ def new_entry_view(request, goal_pk):
         entry.goal = goal
         entry.save()
         messages.success(request, 'You created a new entry in your goal journal.')
-        return redirect('goals:goal_detail', goal_pk=goal.pk)
+        return redirect('goal_detail', goal_pk=goal.pk)
     else:
         messages.error(request, entry_form.errors)
-        return redirect('goals:goal_detail', goal_pk=goal.pk)
+        return redirect('goal_detail', goal_pk=goal.pk)
 
 
 @login_required
@@ -59,10 +59,10 @@ def edit_entry_view(request, entry_pk):
         if entry_form.is_valid():
             entry_form.save()
             messages.success(request, 'You updated an entry in your goal journal for {}.'.format(entry.goal.goal))
-            return redirect('journal:goal_journal')
+            return redirect('goal_journal')
         else:
             messages.error(request, entry_form.errors)
-            return redirect('journal:goal_journal')
+            return redirect('goal_journal')
     entry_form = EntryForm(instance=entry)
     context = {
         'entry': entry,
@@ -77,4 +77,4 @@ def delete_entry_view(request, entry_pk):
     entry = get_object_or_404(Entry, pk=entry_pk)
     entry.delete()
     messages.success(request, "You deleted the entry from '{} for {}.".format(entry.date_of_entry, entry.goal.goal))
-    return redirect('journal:goal_journal')
+    return redirect('goal_journal')
