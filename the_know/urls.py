@@ -22,5 +22,6 @@ urlpatterns = [
     re_path('accounts/', include('accounts.urls')),
     re_path('goals/', include('goals.urls')),
     re_path('journal/', include('journal.urls')),
+    re_path('blog/', include('blog.urls')),
     re_path('accounts/', include('django.contrib.auth.urls')),
 ]

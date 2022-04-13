@@ -1,4 +1,38 @@
 body {
-    background: red;
+    background: white;
+    color: #222;
+    line-height: 1.4;
+    font-size: 18px;
+    margin: 0px;
+}
+
+.container {
+    margin: 0 auto;
+    width: 95%;
+    max-width: 1140px;
+}
+
+h2, h3 {
+    color: #3a8bab;
+}
+
+.topbar {
+    background: #79B9D2;
     color: white;
+    width: 100%;
+    z-index: 9999;
+    padding: 20px 20px;
+    height: 100px;
+}
+
+.left{float:left;}
+.right{float:right;}
+
+.topbar ul li {
+    display: inline-block;
+    padding: 10px;
+}
+.topbar ul li a {
+    color: white;
+    text-decoration: none;
 }
