@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, CreateView
-
+from django.shortcuts import render
+from django.http import HttpResponse
 # Create your views here.
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -30,18 +31,7 @@ class AddQuestionView(CreateView):
         return initial
 
 
-class HomePageView(View):
+def HomePageView(request):
+    return render(request, 'index.html')
 
-    def dispatch(request, *args, **kwargs):
-        response_text = textwrap.dedent('''\
-            <html>
-            <head>
-                <title>Greetings to the world</title>
-            </head>
-            <body>
-                <h1>Greetings to the world</h1>
-                <p>Hello, world!</p>
-            </body>
-            </html>
-        ''')
-        return HttpResponse(response_text)
+
