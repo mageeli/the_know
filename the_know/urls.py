@@ -23,5 +23,6 @@ urlpatterns = [
     re_path('goals/', include('goals.urls')),
     re_path('journal/', include('journal.urls')),
     re_path('blog/', include('blog.urls')),
+    re_path(r'^tinymce/', include('tinymce.urls')),
     re_path('accounts/', include('django.contrib.auth.urls')),
 ]

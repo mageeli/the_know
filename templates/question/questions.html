@@ -1,24 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'home.html' %}
 {% block content %}
+
 {% if user.is_authenticated %}
 Welcome {{ user.username }}! <a href="{% url 'logout' %}">logout</a>
 {% else %}
 You are not logged in <a href="{% url 'login' %}">login</a>
 {% endif %}
-{% endblock %}
-{% include 'navbar.html' %}
+
+
 <h1>Questions</h1>
 {% for question in object_list %}
 <hr>
-<h2>{{ question.title }}</h2>
+<h2><a href="/question/{{ question.id }}">{{ question.title }}</a></h2>
 <br>
 {{ question.body }}
 {% endfor %}
-</body>
-</html>
+{% endblock %}

@@ -1,17 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    {% load static %}
-    <link rel="stylesheet"
-          type="text/css"
-          href="{% static 'style.css' %}" />
-</head>
-<body>
+{% extends 'home.html' %}
+
+{% if user.is_authenticated %}
+{% load crispy_forms_tags %}
+{% block content %}
 <h2>{{ object.title }}</h2>
-<b>{{ object.author }}</b>
 <br>
-{{ object.text }}
-</body>
-</html>
+{{ object.text|safe }}
+{% endblock %}
+
+{% else %}
+You are not logged in <a href="{% url 'login' %}">login</a>
+{% endif %}

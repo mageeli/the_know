@@ -1,17 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    {% load static %}
-    <link rel="stylesheet"
-          type="text/css"
-          href="{% static 'style.css' %}" />
-</head>
-<body>
-{% include 'navbar.html' %}
+{% extends 'home.html' %}
+{% block content %}
+
+{% if user.is_authenticated %}
+Welcome {{ user.username }}! <a href="{% url 'logout' %}">logout</a>
+{% else %}
+You are not logged in <a href="{% url 'login' %}">login</a>
+{% endif %}
 <h2>{{ object.title }}</h2>
 <br>
 {{ object.body }}
-</body>
-</html>
+{% endblock %}
