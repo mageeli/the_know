@@ -1,5 +1,5 @@
-{% extends 'base.html' %}
-{% load bootstrap4 %}
+{% extends 'home.html' %}
+{% load bootstrap5 %}
 {% block content %}
 <form method="post" action="">{% csrf_token %}
     <div id="form-alerts">
@@ -7,7 +7,7 @@
     </div>
     <div class="card mb-4">
       <div class="card-body">
-          <h3 class="card-title pt-2">{{ action }}</h3>
+          <h3 class="card-title pt-2">{{ action|safe }}</h3>
           <h5 class="card-text">Edit Action</h5>
           {% bootstrap_field action_form.action show_label=False %}
           <h5 class="card-text">Goals:</h5>
@@ -21,7 +21,7 @@
           {% bootstrap_field action_form.priority %}
           {% bootstrap_field action_form.action_completed %}
           <!-- Button trigger delete action modal -->
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteActionModal">
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteActionModal">
               Delete Action
             </button>
           <button type="submit" class="btn btn-primary">

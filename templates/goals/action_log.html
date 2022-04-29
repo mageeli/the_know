@@ -1,36 +1,97 @@
-{% extends 'base.html' %}
-{% load bootstrap4 %}
+{% extends 'home.html' %}
+{% load bootstrap5 %}
 {% block content %}
-<h3><a href="{% url 'goal_detail' goal_pk=goal.id %}">{{ goal }}</a></h3>
-<hr>
-<div class="card">
-    <ul class="list-group list-group-flush">
-        {% for action_recorded in action_log %}
-        <li class="list-group-item">
-            <strong><a href="{% url 'manage_action' goal_pk=goal.id action_pk=action_recorded.action.id %}">{{ action_recorded.action }}</a></strong><br>
-            <span class="badge badge-pill badge-{{ action_recorded.get_action_status_class }}">{{ action_recorded.get_action_status_display }}</span>
-            {{ action_recorded.status_logged|date:"D. M. d, Y P" }}
-        </li>
-        {% endfor %}
-    </ul>
+<div class="card info-card customers-card">
+    <div class="filter">
 
-    {% if action_log.has_next %}
-    <nav aria-label="Page navigation">
-        <ul class="pagination d-flex justify-content-between my-2 mx-3">
-            <li class="page-item">
-                {% if action_log.has_previous %}
-                <a class="page-link" href="?page={{ action_log.previous_page_number }}">
-                    <span aria-hidden="true">&laquo; Newer actions</span>
-                </a>
+        <form method="post" action="{% url 'goal_achieved' pk=goal.pk %}">{% csrf_token %}
+            <button type="submit" class="btn btn-primary btn-block mt-2 mt-lg-0">Goal Achieved</button>
+        </form>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Goal Detail <span>| This Year</span><small> | <a class="mr-2" href="{% url 'edit_goal' goal.pk %}"><i class="bi  bi-pencil-square"></i></a></small></h5>
+        <div class="d-flex align-items-center">
+            <div class="mr-4 goal-score-container">
+                {% if goal.current_score or goal.current_score == 0 %}
+                <div class="goal-score goal-score-{{ goal.get_success_range_class }}">{{ goal.current_score }}</div>
                 {% endif %}
+            </div>
+            <div class="ps-3">
+                <h6>{{ goal }}</h6>
+                <small>{% if goal.target_date %}<i class="bi bi-calendar-check"></i> {{ goal.target_date }}{% else %}Ongoing{% endif %}</small>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="filter">
+        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+            <li class="dropdown-header text-start">
+                <h6>Filter</h6>
             </li>
-            <li class="page-item">
-                <a class="page-link" href="?page={{ action_log.next_page_number }}">
-                <span aria-hidden="true">Older actions &raquo;</span>
-                </a>
-            </li>
+            <li><a class="dropdown-item" href="{% url 'action_log_list' goal_pk=goal.id %}">View all actions</a></li>
+            <li><a class="dropdown-item" href="#">Today</a></li>
+            <li><a class="dropdown-item" href="#">This Month</a></li>
+            <li><a class="dropdown-item" href="#">This Year</a></li>
         </ul>
-    </nav>
-    {% endif %}
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Action Log <span>| Today</span></h5>
+        <div class="activity">
+            {% if not action_log %}<p>It's time to log your first actions!</p>{% endif %}
+            {% if action_log %}
+            {% for action_recorded in action_log %}
+            <div class="activity-item d-flex">
+                <div class="activite-label">{{ action_recorded.status_logged|timesince }}</div>
+                <i class='bi bi-circle-fill activity-badge text-{{ action_recorded.get_action_status_class }} align-self-start'></i>
+                <div class="activity-content">
+                    <a href="{% url 'manage_action' goal_pk=goal.pk action_pk=action_recorded.action.pk %}" class="text-dark">{{ action_recorded.action|safe }}</a> <a href="#" data-bs-toggle="modal" data-bs-target="#basicModal-{{action_recorded.pk}}"><i class="bi bi-clipboard-x text-danger"></i></a>
+                </div>
+            </div>
+            <div class="modal fade" id="basicModal-{{action_recorded.pk}}" tabindex="-1">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" >Remove Entry From Action Log</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to remove this entry from your your action log?
+                        </div>
+                        <div class="modal-footer">
+                            <form method="post" action="{% url 'delete_action_log' goal_pk=goal.pk action_log_pk=action_recorded.pk %}">{% csrf_token %}
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-danger">Remove Entry From Action Log</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End Basic Modal-->
+            <!-- End activity item-->
+            {% endfor %}
+            {% endif %}
+        </div>
+
+        <nav aria-label="Page navigation">
+            <ul class="pagination d-flex justify-content-between my-2 mx-3">
+                <li class="page-item">
+                    {% if action_log.has_previous %}
+                    <a class="page-link" href="?page={{ action_log.previous_page_number }}">
+                        <span aria-hidden="true">&laquo; Newer actions</span>
+                    </a>
+                    {% endif %}
+                </li>
+                {% if action_log.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ action_log.next_page_number }}">
+                        <span aria-hidden="true">Older actions &raquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+
+    </div>
 </div>
 {% endblock content %}

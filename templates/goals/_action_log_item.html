@@ -1,6 +1,6 @@
 <li class="list-group-item">
 <p>
-    <span class="badge badge-pill badge-{{ action_recorded.get_action_status_class }}">{{ action_recorded.get_action_status_display }}</span>
+    <span class="badge bg-{{ action_recorded.get_action_status_class }}">{{ action_recorded.get_action_status_display }}</span>
     {{ action_recorded.status_logged|date:"D. M. d, Y P"  }} <a href="#" data-toggle="modal" data-target="#deleteActionLogModal"><i class="fas fa-times-circle text-danger"></i></a>
 </p>
 <a href="{% url 'manage_action' goal_pk=goal.pk action_pk=action_recorded.action.pk %}">{{ action_recorded.action }}</a>

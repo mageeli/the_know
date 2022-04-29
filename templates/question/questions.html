@@ -1,18 +1,22 @@
 {% extends 'home.html' %}
 {% block content %}
-
-{% if user.is_authenticated %}
-Welcome {{ user.username }}! <a href="{% url 'logout' %}">logout</a>
-{% else %}
-You are not logged in <a href="{% url 'login' %}">login</a>
-{% endif %}
-
-
-<h1>Questions</h1>
 {% for question in object_list %}
-<hr>
-<h2><a href="/question/{{ question.id }}">{{ question.title }}</a></h2>
-<br>
-{{ question.body }}
+<div class="col-lg-12">
+
+<div class="card info-card">
+    <div class="card-body">
+        <h5 class="card-title"><a href="/question/{{ question.id }}">{{ question.title }}</a><span>| 2022</span></h5>
+
+        <div class="d-flex align-items-center">
+            <div class="ps-3">
+                <p>{{ question.body|safe }}</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</div>
+
 {% endfor %}
 {% endblock %}

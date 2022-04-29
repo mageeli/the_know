@@ -1,6 +1,6 @@
-{% load bootstrap4 %}
+{% load bootstrap5 %}
 
-<h5 class="card-title pl-3">New journal entry <a href="#" data-toggle="modal" data-target="#newEntryModal"><i class="far fa-plus-square"></i></a></h5>
+<h5 class="card-title pl-3">New journal entry <a href="#" data-bs-toggle="modal" data-bs-target="#newEntryModal"><i class="bi bi-clipboard-plus"></i></a></h5>
 
 <!-- Journal entry modal -->
 <div class="modal fade" id="newEntryModal" tabindex="-1" role="dialog" aria-labelledby="newEntryModalLabel" aria-hidden="true">
@@ -8,15 +8,16 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="entryModalLabel">Progress Journal for {% now 'M d\, Y' %}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <h3 class="card-title pt-2">Journal Entry</h3>
-        <form method="post" action="{% url 'new_entry' goal_pk=goal.id %}">{% csrf_token %}
+        <form method="post" action="{% url 'new_entry' goal_pk=goal.id %}" novalidate>
+            {% csrf_token %}
             {% bootstrap_form entry_form show_label=False %}
-            <button type="submit" class="btn btn-primary btn-sm">Save Journal Entry</button>
+            {% buttons %}
+            <button type="submit" class="btn btn-primary btn-sm">Save changes</button>
+            {% endbuttons %}
         </form>
       </div>
     </div>
@@ -27,7 +28,7 @@
 {% for entry in goal.entry_set.all %}
     <li class="list-group-item">
     <a href="{% url 'edit_entry' entry_pk=entry.pk %}"><h5 class="card-title pt-2">{{ entry.date_of_entry }}</h5></a>
-    {{ entry.progress|linebreaks }}
+    {{ entry.progress|safe|linebreaks }}
     </li>
 {% endfor %}
 </ul>

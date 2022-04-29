@@ -1,13 +1,18 @@
 {% extends 'home.html' %}
-
-{% if user.is_authenticated %}
-{% load crispy_forms_tags %}
 {% block content %}
-<h2>{{ object.title }}</h2>
-<br>
-{{ object.text|safe }}
-{% endblock %}
+<div class="col-lg-12">
 
-{% else %}
-You are not logged in <a href="{% url 'login' %}">login</a>
-{% endif %}
+    <div class="card info-card">
+        <div class="card-body">
+            <h5 class="card-title">{{ object.title }}</h5>
+
+            <div class="d-flex align-items-center">
+                <div class="ps-3">
+                   <p>{{ object.text|safe }}</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

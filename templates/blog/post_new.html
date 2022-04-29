@@ -1,16 +1,25 @@
 {% extends 'home.html' %}
+{% block content %}
+{% load bootstrap5 %}
+<div class="col-lg-12">
 
-    {% if user.is_authenticated %}
-    {% load crispy_forms_tags %}
-    {% block content %}
-    <h2>New post</h2>
-    <form method="POST" class="post-form">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit" class="save btn btn-default">Save</button>
-    </form>
-    {% endblock %}
+    <div class="card info-card">
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+            <h5 class="card-title">New Post</h5>
+            <div class="align-items-center">
+                <div class="ps-3">
+                    <form method="POST" class="post-form col-lg-12">
+                        {% csrf_token %}
+                        {% bootstrap_form form %}
+                        {% buttons %}
+                        <button type="submit" class="save btn btn-primary">Save</button>
+                        {% endbuttons %}
+                    </form>
+                </div>
+            </div>
 
-    {% else %}
-    You are not logged in <a href="{% url 'login' %}">login</a>
-    {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

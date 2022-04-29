@@ -1,66 +1,59 @@
-{% extends 'base.html' %}
-<!--{% load bootstrap4 %}-->
+{% extends 'home.html' %}
 {% block content %}
-<div class="mb-4 d-flex justify-content-between align-items-center">
-    <h3>{% if category %}{{ category }}{% else %}All{% endif %} goals</h3>
-    <a class="btn btn-primary" href="{% url 'new_goal' %}" role="button">Set a new goal</a>
-</div>
-
-<div id="goal-list-filters" class="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-md-0">
-    <ul class="nav nav-tabs my-md-0 mr-md-auto" id="pills-tab" role="tablist">
-        {% if tracked_goals %}
-        <li class="nav-item">
-            <a class="nav-link active small-pill" id="pills-current-tab" data-toggle="pill" href="#pills-current" role="tab" aria-controls="pills-current" aria-selected="true">Current</a>
-        </li>
-        {% endif %}
-        {% if achieved_goals %}
-        <li class="nav-item">
-            <a class="nav-link small-pill" id="pills-achieved-tab" data-toggle="pill" href="#pills-achieved" role="tab" aria-controls="pills-acheived" aria-selected="false">Achieved</a>
-        </li>
-        {% endif %}
-    </ul>
-    <ul class="navbar-nav d-none d-sm-block">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle pt-0 text-dark" href="#" id="categoryDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Category
-        </a>
-        <div class="dropdown-menu" aria-labelledby="categoryDropdown">
-          <a class="dropdown-item" href="{% url 'goal_list' %}">All</a>
-          {% if categories %}
-          {% for goal_category in categories %}
-          <a class="dropdown-item" href="{% url 'category' goal_category.id %}">{{ goal_category }}</a>
-          {% endfor %}
-          {% endif %}
-        </div>
-      </li>
-    </ul>
-</div>
-<hr>
 <div class="card">
-    <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade show active" id="pills-current" role="tabpanel" aria-labelledby="pills-current-tab">
-            <ul class="list-group list-group-flush">
+    <div class="filter">
+        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+            <li class="dropdown-header text-start">
+                <h6>Category</h6>
+            </li>
+
+            <li><a class="dropdown-item" href="{% url 'goal_list' %}">All</a></li>
+            {% if categories %}
+            {% for goal_category in categories %}
+            <li><a class="dropdown-item" href="{% url 'category' goal_category.id %}">{{ goal_category }}</a></li>
+            {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">{% if category %}{{ category }}{% else %}All{% endif %} goals</h5>
+
+        <!-- Bordered Tabs -->
+        <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
             {% if tracked_goals %}
-            {% for goal in tracked_goals %}
-                {% include 'goals/_goal.html' with goal=goal %}
-            {% endfor %}
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-home" type="button" role="tab" aria-controls="home" aria-selected="true">Current</button>
+            </li>
             {% endif %}
-            {% if untracked_goals %}
-            {% for goal in untracked_goals %}
-                {% include 'goals/_goal.html' with goal=goal %}
-            {% endfor %}
-            </ul>
-            {% endif %}
-        </div>
-        <div class="tab-pane fade" id="pills-achieved" role="tabpanel" aria-labelledby="pills-achieved-tab">
-          <ul class="list-group list-group-flush">
             {% if achieved_goals %}
-            {% for goal in achieved_goals %}
-                {% include 'goals/_goal.html' with goal=goal %}
-            {% endfor %}
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#bordered-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Achieved</button>
+            </li>
             {% endif %}
-          </ul>
-        </div>
+        </ul>
+        <div class="tab-content pt-2" id="borderedTabContent">
+            <div class="list-group tab-pane fade show active" id="bordered-home" role="tabpanel" aria-labelledby="home-tab">
+                {% if tracked_goals %}
+                {% for goal in tracked_goals %}
+                {% include 'goals/_goal.html' with goal=goal %}
+                {% endfor %}
+                {% endif %}
+                {% if untracked_goals %}
+                {% for goal in untracked_goals %}
+                {% include 'goals/_goal.html' with goal=goal %}
+                {% endfor %}
+                {% endif %}
+            </div>
+            <div class="tab-pane fade" id="bordered-profile" role="tabpanel" aria-labelledby="profile-tab">
+                {% if achieved_goals %}
+                {% for goal in achieved_goals %}
+                {% include 'goals/_goal.html' with goal=goal %}
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div><!-- End Bordered Tabs -->
+
     </div>
 </div>
 {% endblock %}

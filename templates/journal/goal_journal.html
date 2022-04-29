@@ -1,24 +1,37 @@
-{% extends 'base.html' %}
-{% load bootstrap4 %}
+{% extends 'home.html' %}
+{% load bootstrap5 %}
 {% block content %}
-<h3>Goal Journal</h3>
-<hr>
-<div class="card">
-    <ul class="list-group list-group-flush">
+<div class="col-lg-12">
     {% if entries %}
     {% for entry in entries %}
-        <li class="list-group-item">
-        <a href="{% url 'goal_detail' entry.goal.id %}"><h4>{{ entry.goal }}</h4></a>
-        <h5 class="text-muted pt-2">{{ entry.date_of_entry }} <a href="{% url 'edit_entry' entry_pk=entry.pk %}"><i class="far fa-edit"></i></a></h5>
-        {{ entry.progress|linebreaks }}
-        </li>
+    <div class="card info-card">
+        <div class="card-body">
+        <h5 class="card-title"><a href="{% url 'goal_detail' entry.goal.id %}">{{ entry.goal }}</a><span> | {{ entry.date_of_entry }}</span><span> | <a href="{% url 'edit_entry' entry_pk=entry.pk %}"><i class="bi bi-pencil-square"></i></a></span></h5>
+
+            <div class="d-flex align-items-center">
+                <div class="ps-3">
+                    <p> {{ entry.progress|safe|linebreaks }}</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
     {% endfor %}
     {% else %}
-        <li class="list-group-item">Return to your <a href="{% url 'goal_list' %}">goal list</a> and select a goal to create your first entry in your goal journal</li>
+    <div class="card info-card">
+        <div class="card-body">
+            <h5 class="card-title"><a href=""></a><span> </span></h5>
+
+            <div class="d-flex align-items-center">
+                <div class="ps-3">
+                    <p>Return to your <a href="{% url 'goal_list' %}">goal list</a> and select a goal to create your first entry in your goal journal</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
     {% endif %}
-    </ul>
-    {% if entries.count > 10 %}
-    <div class="card-footer">
+
         <nav aria-label="Page navigation">
             <ul class="pagination d-flex justify-content-between mx-3">
                 <li class="page-item">
@@ -31,13 +44,14 @@
                 {% if entries.has_next %}
                 <li class="page-item">
                     <a class="page-link" href="?page={{ entries.next_page_number }}">
-                    <span aria-hidden="true">Older entries &raquo;</span>
+                        <span aria-hidden="true">Older entries &raquo;</span>
                     </a>
                 </li>
                 {% endif %}
             </ul>
         </nav>
-    </div>
-    {% endif %}
+
+
+
 </div>
 {% endblock content %}
