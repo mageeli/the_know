@@ -19,7 +19,7 @@
                     {% endif %}
                 </div>
                 <div class="ps-3">
-                    <h6>{{ goal }}</h6>
+                    <h6>{{ goal|safe }}</h6>
                     <small>{% if goal.target_date %}<i class="bi bi-calendar-check"></i> {{ goal.target_date }}{% else %}Ongoing{% endif %}</small>
                 </div>
             </div>

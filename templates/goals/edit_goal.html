@@ -1,7 +1,8 @@
 {% extends 'home.html' %}
 {% load bootstrap5 %}
 {% block content %}
-<form method="post" action="">{% csrf_token %}
+<form method="post" action="" novalidate>
+  {% csrf_token %}
     <div class="card mb-4">
       <div class="card-body">
         <h5 class="card-title">{% if edit %}Edit goal{% else %}Set a new goal{% endif %}</h5>
@@ -123,9 +124,11 @@ $(function () {
         // forms in formset are numbered starting at 0, so id, name and for attrs will always be one less than the
         // total number of attendee forms displayed
         var lastFormNumber = ($totalForms.val() - 1).toString();
+        console.log(lastFormNumber)
         var newFormNumber = $totalForms.val();
-        // replace lastFormNumber with newFormNumber in id, name and for attrs of the cloned forms
-        $newForm.find(':input').each(function () {
+      console.log(newFormNumber)
+      // replace lastFormNumber with newFormNumber in id, name and for attrs of the cloned forms
+        $newForm.find('.input').each(function () {
             var name = $(this).attr('name').replace('-' + lastFormNumber + '-', '-' + newFormNumber + '-');
             var id = 'id_' + name;
             $(this).attr({'name': name, 'id': id});
