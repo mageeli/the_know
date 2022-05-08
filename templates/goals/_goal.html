@@ -1,6 +1,6 @@
 <a href="{% url 'goal_detail' goal.id %}" class="list-group-item list-group-item-action" aria-current="true">
     <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">{{ goal }}</h5>
+        <h5 class="mb-1">{{ goal|safe }}</h5>
         {% if goal.current_score or goal.current_score == 0 %}
              <span class="badge bg-{{ goal.get_success_range_class }}">{{ goal.current_score }}</span>
         {% endif %}

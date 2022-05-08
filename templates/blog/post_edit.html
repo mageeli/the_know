@@ -1,0 +1,25 @@
+{% extends 'home.html' %}
+{% block content %}
+{% load bootstrap5 %}
+<div class="col-lg-12">
+
+    <div class="card info-card">
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+            <h5 class="card-title">New Post</h5>
+            <div class="align-items-center">
+                <div class="ps-3">
+                    <form method="POST" class="post-form col-lg-12">
+                        {% csrf_token %}
+                        {% bootstrap_form form %}
+                        {% buttons %}
+                        <button type="submit" class="save btn btn-primary">Save</button>
+                        {% endbuttons %}
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

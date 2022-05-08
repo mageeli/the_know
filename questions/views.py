@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, ListView, DetailView, CreateView
-from django.shortcuts import render
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView
+from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
 # Create your views here.
 from django.shortcuts import render
@@ -29,6 +29,16 @@ class AddQuestionView(CreateView):
     def get_initial(self,):
         initial = super().get_initial()
         return initial
+
+class EditQuestionView(UpdateView):
+    template_name = 'question/edit_question.html'
+    model = Question
+    fields = ['title', 'body']
+
+    def get_success_url(self):
+        return reverse('question', kwargs={
+            'pk': self.object.pk,
+        })
 
 
 def HomePageView(request):
