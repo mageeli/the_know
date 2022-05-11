@@ -98,18 +98,18 @@ WSGI_APPLICATION = 'the_know.wsgi.application'
 
 if DEVELOPMENT_MODE is True:
     DATABASES = {
-        # "default": {
-        #     "ENGINE": "django.db.backends.postgresql_psycopg2",
-        #     "NAME": "db",
-        #     "USER": "db",
-        #     "PASSWORD": "AVNS_v7xYpObqqu_SQq8",
-        #     "HOST": "app-d25fe38e-988c-47f3-b4c8-352a12754778-do-user-11298864-0.b.db.ondigitalocean.com",
-        #     "PORT": "25060",
-        # }
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR/'db.sqlite3',
+        "default": {
+            "ENGINE": "django.db.backends.postgresql_psycopg2",
+            "NAME": "db",
+            "USER": "db",
+            "PASSWORD": "AVNS_v7xYpObqqu_SQq8",
+            "HOST": "app-d25fe38e-988c-47f3-b4c8-352a12754778-do-user-11298864-0.b.db.ondigitalocean.com",
+            "PORT": "25060",
         }
+        # 'default': {
+        #     'ENGINE': 'django.db.backends.sqlite3',
+        #     'NAME': BASE_DIR/'db.sqlite3',
+        # }
     }
 elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
     if os.getenv("DATABASE_URL", None) is None:
