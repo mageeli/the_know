@@ -31,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "True") == "True"
-DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
+DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "True") == "True"
 
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,mousaageeli.me,theknow-eh7h4.ondigitalocean.app").split(",")
 
@@ -55,7 +55,8 @@ INSTALLED_APPS = [
     'bootstrap5',
     "whitenoise.runserver_nostatic",  # new
     'blog',
-    'tinymce'
+    'tinymce',
+    'tasks'
 ]
 # CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
@@ -98,18 +99,18 @@ WSGI_APPLICATION = 'the_know.wsgi.application'
 
 if DEVELOPMENT_MODE is True:
     DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql_psycopg2",
-            "NAME": "db",
-            "USER": "db",
-            "PASSWORD": "AVNS_v7xYpObqqu_SQq8",
-            "HOST": "app-d25fe38e-988c-47f3-b4c8-352a12754778-do-user-11298864-0.b.db.ondigitalocean.com",
-            "PORT": "25060",
-        }
-        # 'default': {
-        #     'ENGINE': 'django.db.backends.sqlite3',
-        #     'NAME': BASE_DIR/'db.sqlite3',
+        # "default": {
+        #     "ENGINE": "django.db.backends.postgresql_psycopg2",
+        #     "NAME": "db",
+        #     "USER": "db",
+        #     "PASSWORD": "AVNS_v7xYpObqqu_SQq8",
+        #     "HOST": "app-d25fe38e-988c-47f3-b4c8-352a12754778-do-user-11298864-0.b.db.ondigitalocean.com",
+        #     "PORT": "25060",
         # }
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR/'db.sqlite3',
+        }
     }
 elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
     if os.getenv("DATABASE_URL", None) is None:
