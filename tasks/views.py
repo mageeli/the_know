@@ -96,3 +96,8 @@ class ItemDelete(DeleteView):
         context = super().get_context_data(**kwargs)
         context["todo_list"] = self.object.todo_list
         return context
+
+
+class PostView(ListView):
+    model = ToDoItem
+    template_name = "tasks/tasks_list.html"

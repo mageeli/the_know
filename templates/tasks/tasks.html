@@ -21,9 +21,10 @@
     <ul>
         {% for todolist in object_list %}
         <li>
+            <a href="tasks/lists/{{  todolist.id }}">{{ todolist.title }}</a>
             <div
                     role="button"
-                    onclick="location.href='{% url "list" todolist.id %}'">
+                    onclick="location.href='tasks/list/{{  todolist.id }}'">
             {{ todolist.title }}
             </div>
         </li>
@@ -38,7 +39,6 @@
     <input
             value="Add a new list"
             type="button"
-            onclick="location.href='{% url "list-add" %}'"/>
+            onclick="location.href='{% url "tasks:list-add" %}'"/>
 </p>
 {% endblock %}
-https://realpython.com/django-todo-lists/
