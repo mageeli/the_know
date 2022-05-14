@@ -1,21 +1,31 @@
 {% extends "home.html" %}
-
+{% load bootstrap5 %}
 {% block content %}
+<div class="col-lg-12">
+  <div class="card info-card">
+    <div class="card-body">
+      <h5 class="card-title"></h5>
+      <h5 class="card-title">Delete To-do Item</h5>
+      <div class="align-items-center">
+        <div class="ps-3">
+          <p>Are you sure you want to delete the item: <b>{{ object.title }}</b>
+            from the list <i>{{ todo_list.title }}</i>?</p>
+          <form method="POST" class="post-form col-lg-12">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+            <button type="submit" class="save btn btn-primary">Yes, delete.</button>
+            <input
+                    class="save btn btn-warning"
+                    value="Cancel"
+                    type="button"
+                    onclick="location.href='{% url "list" todo_list.id %}'">
+            {% endbuttons %}
+          </form>
+        </div>
+      </div>
 
-<h3>Delete To-do Item</h3>
-
-<p>Are you sure you want to delete the item: <b>{{ object.title }}</b>
-  from the list <i>{{ todo_list.title }}</i>?</p>
-
-<form method="POST">
-  {% csrf_token %}
-  <input
-          value="Yes, delete."
-          type="submit">
-  <input
-          value="Cancel"
-          type="button"
-          onclick="location.href='{% url "list" todo_list.id %}';">
-</form>
-
+    </div>
+  </div>
+</div>
 {% endblock %}

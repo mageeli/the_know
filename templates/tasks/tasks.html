@@ -1,44 +1,42 @@
 {% extends 'home.html' %}
 {% block content %}
-{% for post in object_list %}
-<div class="col-lg-12">
-    <div class="card info-card">
-        <div class="card-body">
-            <h5 class="card-title"><span>| 2022</span><small> | <a class="mr-2" href="/blog/post//edit"><i class="bi  bi-pencil-square"></i></a></small></h5>
-            <div class="d-flex align-items-center">
-                <div class="ps-3">
-                    <p>
-                        {{ post.text|safe|slice:":255" }}
-                        <a href="/blog/post/">more</a>
-                    </p>
+    <div class="col-lg-12">
+    {% for todolist in object_list %}
+        <div class="card info-card">
+            <div class="card-body">
+                <h5 class="card-title"><a href="{% url "list" todolist.id %}">{{ todolist.title }}</a></h5>
+                <div class="d-flex align-items-center">
+                    <div class="ps-3">
+                        <ul>
+                            {% for todo in todo_list_items %}
+                                {% if todo.todo_list.id == todolist.id %}
+                                    <li>
+                                        <div>
+                                            <div role="button" onclick="location.href='{% url "item-update" todolist.id todo.id %}'">
+                                            {{ todo.title }}|{{ todo.for_whom}}
+                                            (Due {{ todo.due_date | date:"l, F j" }})
+                                        </div>
+                                     </li>
+                                {% endif %}
+                            {% empty %}
+                            <p>There are no to-do items in this list.</p>
+                            {% endfor %}
+                         </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    {% if object_list %}
-    <h3>All my lists</h3>
-    {% endif %}
-    <ul>
-        {% for todolist in object_list %}
-        <li>
-            <a href="tasks/lists/{{  todolist.id }}">{{ todolist.title }}</a>
-            <div
-                    role="button"
-                    onclick="location.href='tasks/list/{{  todolist.id }}'">
-            {{ todolist.title }}
+    {% empty %}
+        <div class="card info-card">
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <div class="d-flex align-items-center">
+                    <div class="ps-3">
+                        <h4>You have no lists!</h4>
+                    </div>
+                </div>
             </div>
-        </li>
-        {% empty %}
-        <h4>You have no lists!</h4>
-        {% endfor %}
-    </ul>
-</div>
-{% endfor %}
-
-<p>
-    <input
-            value="Add a new list"
-            type="button"
-            onclick="location.href='{% url "tasks:list-add" %}'"/>
-</p>
+        </div>
+    {% endfor %}
+    </div>
 {% endblock %}
