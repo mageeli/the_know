@@ -34,8 +34,7 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 DEBUG = os.getenv("DEBUG", "True") == "False"
 DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "True") == "True"
 
-ALLOWED_HOSTS = os.getenv('*', "DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,mousaageeli.me,theknow-eh7h4.ondigitalocean.app").split(",")
-
+ALLOWED_HOSTS = ['*']
 LOGIN_REDIRECT_URL = '/questions/'
 LOGOUT_REDIRECT_URL = '/questions/'
 # Application definition
