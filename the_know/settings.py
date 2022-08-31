@@ -15,6 +15,7 @@ import os
 from django.core.management.utils import get_random_secret_key
 import sys
 import dj_database_url
+import django_heroku
 
 import mimetypes
 mimetypes.add_type("text/css", ".css", True)
@@ -30,10 +31,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #SECRET_KEY = 'django-insecure-3@yf15_8v9a@8_buyl0*n1r-95f4)_bd4uy$4*!+xc4p(goud_'
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", "True") == "True"
-DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
+DEBUG = os.getenv("DEBUG", "True") == "False"
+DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "True") == "True"
 
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,mousaageeli.me,theknow-eh7h4.ondigitalocean.app").split(",")
+ALLOWED_HOSTS = os.getenv('*', "DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,mousaageeli.me,theknow-eh7h4.ondigitalocean.app").split(",")
 
 LOGIN_REDIRECT_URL = '/questions/'
 LOGOUT_REDIRECT_URL = '/questions/'
@@ -180,3 +181,4 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+django_heroku.settings(locals())
