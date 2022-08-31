@@ -1,1 +1,1 @@
-web: gunicorn the_know.wsgi --log-file -
+web: gunicorn the_know.wsgi
