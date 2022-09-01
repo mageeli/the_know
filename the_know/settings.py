@@ -31,8 +31,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #SECRET_KEY = 'django-insecure-3@yf15_8v9a@8_buyl0*n1r-95f4)_bd4uy$4*!+xc4p(goud_'
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", "True") == "True"
-DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "True") == "True"
+DEBUG = os.getenv("DEBUG", "True") == "False"
+DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "True") == "False"
 
 ALLOWED_HOSTS = ['*']
 LOGIN_REDIRECT_URL = '/questions/'
@@ -107,14 +107,14 @@ if DEVELOPMENT_MODE is True:
         #     "HOST": "app-d25fe38e-988c-47f3-b4c8-352a12754778-do-user-11298864-0.b.db.ondigitalocean.com",
         #     "PORT": "25060",
         # }
-        # 'default': {
-        #     'ENGINE': 'django.db.backends.sqlite3',
-        #     'NAME': BASE_DIR/'db.sqlite3',
-        # }
         'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'mousaageeliDB',
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR/'db.sqlite3',
         }
+        # 'default': {
+        #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        #     'NAME': 'mousaageeliDB',
+        # }
     }
 elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
     if os.getenv("DATABASE_URL", None) is None:
