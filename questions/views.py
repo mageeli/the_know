@@ -9,6 +9,7 @@ from django.views.generic.base import View
 import textwrap
 from django.views.generic import TemplateView
 from .models import Question
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -41,6 +42,7 @@ class EditQuestionView(UpdateView):
         })
 
 
+@login_required
 def HomePageView(request):
     return render(request, 'index.html')
 
