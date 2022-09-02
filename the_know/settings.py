@@ -30,11 +30,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+# SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "True") == "False"
+DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "True") == "True"
 
 ALLOWED_HOSTS = ['*']
 LOGIN_REDIRECT_URL = '/questions/'
@@ -109,15 +110,15 @@ if DEVELOPMENT_MODE is True:
         #     "HOST": "app-d25fe38e-988c-47f3-b4c8-352a12754778-do-user-11298864-0.b.db.ondigitalocean.com",
         #     "PORT": "25060",
         # }
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR/'db.sqlite3',
-        }
         # 'default': {
-        #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        #     'NAME': 'mousaageeliDB',
+        #     'ENGINE': 'django.db.backends.sqlite3',
+        #     'NAME': BASE_DIR/'db.sqlite3',
         # }
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        }
     }
+    DATABASES['default'] = dj_database_url.config(default='postgres://ribgnldoiyujmf:9ee5f844d6acf42519c35de64a9ac3d1011ef9d8f1dd96e01b877b75498b2c4a@ec2-54-204-56-171.compute-1.amazonaws.com:5432/d51dp2qm840dsk')
 elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
     if os.getenv("DATABASE_URL", None) is None:
         raise Exception("DATABASE_URL environment variable not defined")
