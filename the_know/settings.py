@@ -16,6 +16,8 @@ from django.core.management.utils import get_random_secret_key
 import sys
 import dj_database_url
 import django_heroku
+from decouple import config
+
 
 import mimetypes
 mimetypes.add_type("text/css", ".css", True)
@@ -28,10 +30,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'django-insecure-3@yf15_8v9a@8_buyl0*n1r-95f4)_bd4uy$4*!+xc4p(goud_'
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
+SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", "True") == "True"
+DEBUG = True
+
 DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "True") == "False"
 
 ALLOWED_HOSTS = ['*']
@@ -177,11 +179,11 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+#STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # STATIC_URL = '/static/'
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # Default primary key field type
@@ -189,4 +191,4 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# django_heroku.settings(locals())
+django_heroku.settings(locals())
